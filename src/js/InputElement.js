@@ -32,7 +32,7 @@ export default class InputElement extends HTMLElement{
   }
 
   static get observedAttributes() {
-    return ['placeholder', 'height', "value"]; 
+    return ['placeholder', 'height', "width", "value"]; 
   }
 
 
@@ -160,7 +160,6 @@ export default class InputElement extends HTMLElement{
 
   attributeChangedCallback(name, oldValue, newValue) {
     if(oldValue !== newValue){
-      console.log("new value", newValue)
       this.instance[name] = newValue
     }
   }
