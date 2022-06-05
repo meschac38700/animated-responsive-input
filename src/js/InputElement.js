@@ -23,12 +23,12 @@ export default class InputElement extends HTMLElement{
 
     this.shadow = this.attachShadow({mode: "open"})
 
-    this.bind = this.getAttribute("bind") || bind
-    this.value = this.bind ? eval(this.bind) : this.getAttribute("value") || value
-    this.height = this.getAttribute("height") || height
-    this.width = this.getAttribute("width") || width
-    this.placeholder = this.getAttribute("placeholder") ?? placeholder
-    this.autocomplete = this.getAttribute("autocomplete")  || autocomplete
+    this.bind = this.getAttribute(Fields.BIND) || bind
+    this.value = this.bind ? eval(this.bind) : this.getAttribute(Fields.VALUE) || value
+    this.height = this.getAttribute(Fields.HEIGHT) || height
+    this.width = this.getAttribute(Fields.WIDTH) || width
+    this.placeholder = this.getAttribute(Fields.PLACEHOLDER) ?? placeholder
+    this.autocomplete = this.getAttribute(Fields.AUTOCOMPLETE)  || autocomplete
 
     this.group = document.createElement("div")
     this.group.setAttribute("id", "input-group")
@@ -183,7 +183,7 @@ export default class InputElement extends HTMLElement{
     })
 
     this.input.addEventListener("change", function(e){
-      this.setAttribute("value", this.value)
+      this.setAttribute(Fields.VALUE, this.value)
     })
     this.shadow.innerHTML = ""
     this.render()
@@ -202,10 +202,10 @@ export default class InputElement extends HTMLElement{
       <path fill="currentColor" d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"/>
     </svg>
     `
-    this.input.setAttribute("placeholder", this.placeholder)
-    this.input.setAttribute("value", this.value)
+    this.input.setAttribute(Fields.PLACEHOLDER, this.placeholder)
+    this.input.setAttribute(Fields.VALUE, this.value)
     if(!this.autocomplete)
-      this.input.setAttribute("autocomplete",  "off")
+      this.input.setAttribute(Fields.AUTOCOMPLETE,  "off")
 
     this.group.appendChild(this.input)
     this.group.appendChild(this.icon)
