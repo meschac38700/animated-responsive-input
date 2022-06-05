@@ -11,8 +11,8 @@
       set(obj, key, value){
         if(Reflect.has(obj, key)){
           Reflect.set(obj, key, value)
-          const input = document.querySelector("input-element")
-          input.setAttribute("value", Reflect.get(obj, key))
+          document.querySelector("input-element")
+            .setAttribute("value", Reflect.get(obj, key))
         }
         return true;
       },

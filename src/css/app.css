@@ -17,7 +17,7 @@
 }
 
 .input-group {
-  --height: 45px;
+  --height: 40px;
   --extended-width: calc(var(--height) * 4.8);
   --padding: .4em;
   --border-color: #876ed2;
@@ -28,10 +28,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: none;
   height: var(--height);
   min-width: var(--height);
-  padding: var(--padding) 0;
   background: linear-gradient(to right, var(--bg-start-color), var(--bg-end-color));
   border: 1px solid var(--border-color);
   border-radius: calc((var(--height) / 2));
@@ -70,7 +68,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(var(--height) * 0.7);
+  width: calc(var(--height) * 0.9);
+  height: calc(var(--height) * 0.9);
   color: var(--text-color);
   cursor: pointer;
   transition: .3s color ease-in-out, .3s padding ease-in-out;
