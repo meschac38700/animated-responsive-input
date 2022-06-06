@@ -176,7 +176,12 @@ export default class InputElement extends HTMLElement{
     this.shadow.appendChild(style)
   }
 
+  #clearChildren() {
+    this.shadow.innerHTML = ""
+  }
+
   connectedCallback(){
+
     this.icon.addEventListener('pointerdown', (e) => {
       e.preventDefault()
       this.input.focus()
@@ -185,7 +190,6 @@ export default class InputElement extends HTMLElement{
     this.input.addEventListener("change", function(e){
       this.setAttribute(Fields.VALUE, this.value)
     })
-    this.shadow.innerHTML = ""
     this.render()
   }
 
@@ -196,6 +200,7 @@ export default class InputElement extends HTMLElement{
   }
 
   render(){
+    this.#clearChildren()
     this.#addStyles()
     this.icon.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
