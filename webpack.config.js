@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = {
   mode: 'production',
   entry: {
-    "inputElement.min": "./src/js/InputElement.js",
+    "InputElement.min": "./src/js/InputElement.js",
   },
   devtool: "source-map",
   output: {
