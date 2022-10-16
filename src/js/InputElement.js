@@ -1,18 +1,4 @@
-const Fields = {
-  VALUE: "value",
-  BIND: "bind",
-  HEIGHT: "height",
-  WIDTH: "width",
-  PLACEHOLDER: "placeholder",
-  AUTOCOMPLETE: "autocomplete",
-}
-
-const AvailableEvents = {
-  INPUT: "input",
-  CHANGE: "change",
-  KEYUP: "keyup",
-  KEYDOWN: "keydown"
-}
+import { Fields, AvailableEvents } from "./constants.js";
 export default class InputElement extends HTMLElement{
 
   value = null
@@ -209,8 +195,10 @@ export default class InputElement extends HTMLElement{
         const attributeExists = Object.values(Fields).includes(key)
         if(attributeExists){
 
-          if([Fields.PLACEHOLDER, Fields.VALUE, Fields.AUTOCOMPLETE].includes(key))
+          if([Fields.PLACEHOLDER, Fields.VALUE, Fields.AUTOCOMPLETE].includes(key)){
             self.inputElement.setAttribute(key, value)
+            self.setAttribute(key, value)
+          }
           
           if(key === Fields.WIDTH && !value)
             value = "calc(var(--height) * 4.8)"
@@ -262,10 +250,10 @@ export default class InputElement extends HTMLElement{
   }
 
   /**
-   * Add listeners on the InputElement. 
+   * Handle input events 
    * check {AvailableEvents} to see the list of available listeners
    * @example
-   *  >> input.addEventListener("change", {})
+   *  >> input.addEventListener("change", definedAction)
    */
   #addListeners(){
     Object.values(AvailableEvents).forEach(listener => {
@@ -275,7 +263,7 @@ export default class InputElement extends HTMLElement{
         
         if(listener === "change") this.inputElement.setAttribute(Fields.VALUE, listenerValue)
 
-        Reflect.get(this, listener)?.(listenerValue) // run listener function which was passed as @listener="callBackName"
+        Reflect.apply(Reflect.get(this, listener, this), this, [listenerValue]) // execute listener function which was passed as @listener="callBackName"
         this.#emitEvent(listener, listenerValue) // emit the event on the custom element
       })
     })
@@ -321,5 +309,4 @@ export default class InputElement extends HTMLElement{
   }
 
 }
-
 customElements.define("input-element", InputElement)
