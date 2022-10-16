@@ -70,14 +70,19 @@ export default class InputElement extends HTMLElement{
   }
 
   get #groupStyle(){
-    return `.input-group{
+    return `
+    .input-group{
       --height: ${this.height};
       --extended-width: ${this.width};
       --padding: .4em;
-      --border-color: #876ed2/*#9376e9*/;
-      --bg-start-color: #5b34cf/*#1e143b*/;
+      --border-color: #876ed2;
+      --bg-start-color: #5b34cf;
       --bg-end-color: #070410;
       --text-color: var(--border-color);
+      --icon-color: var(--text-color);
+      --icon-active-color: var(--text-color);
+      --placeholder-color: #e2e2e2;
+
 
       display: flex;
       align-items: center;
@@ -91,7 +96,6 @@ export default class InputElement extends HTMLElement{
 
       height: var(--height);
       min-width: var(--height);
-      /*width: calc(var(--extended-width) + var(--height) * 0.9);*/
       
       margin: 0 auto;
     }`
@@ -112,14 +116,12 @@ export default class InputElement extends HTMLElement{
     .input-group:hover .input-control,
     .input-control:focus,
     .input-control[value]:not([value=""]){
-      --text-color: #fff;
-
       width: var(--extended-width);
       border-radius: calc((var(--height) / 2) + (var(--padding) / 2));
       padding-left: calc(var(--padding) * 2);
     }
     .input-control::placeholder{
-      color: #e2e2e2;
+      color: var(--placeholder-color);
     }`
   }
 
@@ -132,7 +134,7 @@ export default class InputElement extends HTMLElement{
       justify-content: center;
       width: calc(var(--height) * 0.9 );
       height: calc(var(--height) * 0.9 );
-      color: var(--text-color);
+      color: var(--icon-color);
       cursor: pointer;
       transition: .3s color ease-in-out, .3s padding ease-in-out;
     }
@@ -142,7 +144,7 @@ export default class InputElement extends HTMLElement{
     }
     .input-group:hover .input-icon,
     .input-control:focus + .input-icon{
-      --text-color: #fff;
+      --icon-color: var(--icon-active-color);
       padding-right: var(--padding);
       padding-left: calc(var(--padding) * 0.7);
     }
