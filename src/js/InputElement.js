@@ -80,7 +80,7 @@ export default class InputElement extends HTMLElement{
       --bg-end-color: #070410;
       --text-color: var(--border-color);
       --icon-color: var(--text-color);
-      --icon-active-color: var(--text-color);
+      --icon-active-color: #fff;
       --placeholder-color: #e2e2e2;
       display: flex;
       align-items: center;
@@ -114,6 +114,7 @@ export default class InputElement extends HTMLElement{
     .input-group:hover .input-control,
     .input-control:focus,
     .input-control[value]:not([value=""]){
+      --text-color: #fff;
       width: var(--extended-width);
       border-radius: calc((var(--height) / 2) + (var(--padding) / 2));
       padding-left: calc(var(--padding) * 2);
