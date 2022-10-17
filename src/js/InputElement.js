@@ -1,4 +1,4 @@
-import { Fields, AvailableEvents } from "./constants.js";
+import { Fields, AvailableEvents } from "./constants.js"
 export default class InputElement extends HTMLElement{
 
   value = null
@@ -25,7 +25,7 @@ export default class InputElement extends HTMLElement{
   constructor({
     bind=null,
     value="",
-    height="45px",
+    height="40px",
     width="calc(var(--height) * 4.8)",
     placeholder="Enter some text...",
     autocomplete=false,
@@ -82,8 +82,6 @@ export default class InputElement extends HTMLElement{
       --icon-color: var(--text-color);
       --icon-active-color: var(--text-color);
       --placeholder-color: #e2e2e2;
-
-
       display: flex;
       align-items: center;
       justify-content: center;
@@ -205,7 +203,7 @@ export default class InputElement extends HTMLElement{
           if(key === Fields.WIDTH && !value)
             value = "calc(var(--height) * 4.8)"
           
-          Reflect.set(self, key, value);
+          Reflect.set(self, key, value)
 
           if([Fields.HEIGHT, Fields.WIDTH].includes(key))
             self.render()
@@ -220,26 +218,39 @@ export default class InputElement extends HTMLElement{
   }
 
   #addStyles(){
-    const style = document.createElement("style")
-    style.innerText = `
-    *{
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    .content{
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 2em;
-      min-height: 100vh;
-      background: linear-gradient(to top, rgb(25, 14, 63), rgb(72, 47, 155));
-    }
-    ${this.#groupStyle}
-    ${this.#inputStyle}
-    ${this.#iconStyle}
+    this.shadow.innerHTML = `<style>
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .content{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 2em;
+        min-height: 100vh;
+        background: linear-gradient(to top, rgb(25, 14, 63), rgb(72, 47, 155));
+      }
+      ${this.#groupStyle}
+      ${this.#inputStyle}
+      ${this.#iconStyle}
+    </style>
     `
-    this.shadow.appendChild(style)
+    // override style
+    this.#appendAdditionalStyles()
+    
+  }
+
+  /**
+   * override the style using the style provided in the template tag with slot="styles" attribute
+   */
+  #appendAdditionalStyles() {
+    const stylesTemplate =  this.querySelector('[slot="styles"]')
+    if(stylesTemplate){
+      this.stylesContent = stylesTemplate.content.cloneNode(true)
+      this.shadow.appendChild(this.stylesContent.cloneNode(true))
+    }
   }
 
   #clearChildren() {
@@ -292,6 +303,7 @@ export default class InputElement extends HTMLElement{
   render(){
     this.#clearChildren()
     this.#addStyles()
+
     this.icon.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
       <path fill="currentColor" d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"/>
@@ -307,7 +319,6 @@ export default class InputElement extends HTMLElement{
     this.group.appendChild(this.icon)
     this.shadow.appendChild(this.group)
     this.inputElement.focus()
-
   }
 
 }

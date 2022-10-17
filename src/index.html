@@ -13,11 +13,31 @@
   <div class="content">
 
     <!-- custom element -->
-    <input-element bind="myName.value" placeholder="Search.." @change="onChange" @input="onInput" @keyup="onKeyup" @keydown="onKeydown" height="40px" width="240px"></input-element>
+    <input-element myInput bind="myName.value" placeholder="Search.." @change="onChange" @input="onInput" @keyup="onKeyup" @keydown="onKeydown" height="40px" width="240px"></input-element>
+
     <input-element bind="myName2.value" placeholder="Search.." @change="onChange2" @input="onInput2"></input-element>
+    <!-- Override styles -->
+    <input-element bind="myName2.value" placeholder="Search.." @change="onChange2" @input="onInput2">
+      <template slot="styles" id="input-element-styles">
+        <style>
+          .input-group {
+            --height: 40px;
+            --extended-width: 240px;
+            --padding: .4em;
+            --border-color: #3e086a;
+            --bg-start-color: #5e5e5e;
+            --bg-end-color: #3c0f02;
+            --text-color: #fbfbfb;
+            --icon-color: rgb(100, 89, 86);
+            --icon-active-color: rgb(202, 123, 101);
+            --placeholder-color: #9492db;
+          }
+        </style>
+      </template> 
+    </input-element> 
 
   </div>
   <script type="module" src="./js/InputElement.min.js"></script>
-  <script type="module"  defer src="./js/override-style.js"></script>
+  <!-- <script type="module"  defer src="./js/override-style.js"></script>-->
 </body>
 </html>
